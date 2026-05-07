@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { LogOut, Monitor, Smartphone } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { PROJECT_DISPLAY_NAME, PROJECT_TYPE } from '@/config/project'
 import { logout } from '@/lib/auth'
@@ -15,6 +15,7 @@ const MOBILE_MOCKUP_H = 844
 const MOBILE_PADDING = 32
 
 export function PrototypeLayout({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate()
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const [mode, setMode] = React.useState<ViewMode>(
     PROJECT_TYPE === 'desktop' ? 'desktop' : 'mobile'
@@ -95,7 +96,7 @@ export function PrototypeLayout({ children }: { children: React.ReactNode }) {
               onClick={(e) => {
                 e.preventDefault()
                 logout()
-                window.location.href = '/login'
+                navigate('/login', { replace: true })
               }}
               className="inline-flex h-7 w-7 items-center justify-center rounded-md text-surface/70 transition-colors hover:bg-surface/10 hover:text-surface"
             >
